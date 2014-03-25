@@ -64,8 +64,16 @@ c.drawString(340, 635, u"TEL: 987-6543-2211")
 xlist = (420, 460, 500, 540)
 ylist = (525, 565)
 c.grid(xlist, ylist)
+c.setFillColor(colors.red)
+c.setStrokeColor(colors.red)
+c.setLineWidth(1.5)
+c.circle(440, 545, 18)
+c.setFont('Osaka', 16)
+c.drawString(432, 546, u"山")
+c.drawString(432, 532, u"田")
 
 # 下の枠
+c.setStrokeColor(colors.green)
 c.setLineWidth(.5)
 xlist = (50, 300, 370, 460, 540)
 ylist = (50, 75)
@@ -83,6 +91,8 @@ for i in range(75, 500, 25):
 
 c.setLineWidth(1.5)
 c.rect(50, 50, 490, 450)
+
+c.line(50, 75, 540, 75)
 
 c.setFillColor(colors.green)
 c.setFont('Osaka', 8)
