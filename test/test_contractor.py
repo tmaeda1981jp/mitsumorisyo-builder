@@ -4,16 +4,19 @@
 import unittest
 import mock
 import contractor
+import ConfigParser
+import codecs
+import os
 
 
 class TestContractorNormal(unittest.TestCase):
 
     @mock.patch("contractor.Contractor._getConfig")
     def setUp(self, m):
-        import ConfigParser
-        import codecs
         conf = ConfigParser.SafeConfigParser()
-        conf.readfp(codecs.open('./test/fixtures/contractor.normal.conf', 'r', 'utf8'))
+        conf.readfp(codecs.open(
+                os.path.join(os.path.dirname(__file__), 'fixtures/contractor.normal.conf'),
+                'r', 'utf8'))
         m.return_value = conf
         self.contractor = contractor.Contractor()
 
@@ -40,10 +43,10 @@ class TestContractorWhenDataIsEmpty(unittest.TestCase):
 
     @mock.patch("contractor.Contractor._getConfig")
     def setUp(self, m):
-        import ConfigParser
-        import codecs
         conf = ConfigParser.SafeConfigParser()
-        conf.readfp(codecs.open('./test/fixtures/contractor.empty.conf', 'r', 'utf8'))
+        conf.readfp(codecs.open(
+                os.path.join(os.path.dirname(__file__), 'fixtures/contractor.empty.conf'),
+                'r', 'utf8'))
         m.return_value = conf
         self.contractor = contractor.Contractor()
 
@@ -70,10 +73,10 @@ class TestContractorWhenRequiredPropertiesWereNotDefined(unittest.TestCase):
 
     @mock.patch("contractor.Contractor._getConfig")
     def setUp(self, m):
-        import ConfigParser
-        import codecs
         conf = ConfigParser.SafeConfigParser()
-        conf.readfp(codecs.open('./test/fixtures/contractor.noprop.conf', 'r', 'utf8'))
+        conf.readfp(codecs.open(
+                os.path.join(os.path.dirname(__file__), 'fixtures/contractor.noprop.conf'),
+                'r', 'utf8'))
         m.return_value = conf
         self.contractor = contractor.Contractor()
 
