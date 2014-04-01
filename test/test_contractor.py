@@ -11,13 +11,9 @@ import os
 
 class TestContractorNormal(unittest.TestCase):
 
-    @mock.patch("contractor.Contractor._getConfig")
+    @mock.patch("contractor.Contractor._getConfigPath")
     def setUp(self, m):
-        conf = ConfigParser.SafeConfigParser()
-        conf.readfp(codecs.open(
-                os.path.join(os.path.dirname(__file__), 'fixtures/contractor.normal.conf'),
-                'r', 'utf8'))
-        m.return_value = conf
+        m.return_value = os.path.join(os.path.dirname(__file__), 'fixtures/contractor.normal.conf')
         self.contractor = contractor.Contractor()
 
     def test_name(self):
@@ -41,13 +37,9 @@ class TestContractorNormal(unittest.TestCase):
 
 class TestContractorWhenDataIsEmpty(unittest.TestCase):
 
-    @mock.patch("contractor.Contractor._getConfig")
+    @mock.patch("contractor.Contractor._getConfigPath")
     def setUp(self, m):
-        conf = ConfigParser.SafeConfigParser()
-        conf.readfp(codecs.open(
-                os.path.join(os.path.dirname(__file__), 'fixtures/contractor.empty.conf'),
-                'r', 'utf8'))
-        m.return_value = conf
+        m.return_value = os.path.join(os.path.dirname(__file__), 'fixtures/contractor.empty.conf')
         self.contractor = contractor.Contractor()
 
     def test_name_return_empty(self):
@@ -71,13 +63,9 @@ class TestContractorWhenDataIsEmpty(unittest.TestCase):
 
 class TestContractorWhenRequiredPropertiesWereNotDefined(unittest.TestCase):
 
-    @mock.patch("contractor.Contractor._getConfig")
+    @mock.patch("contractor.Contractor._getConfigPath")
     def setUp(self, m):
-        conf = ConfigParser.SafeConfigParser()
-        conf.readfp(codecs.open(
-                os.path.join(os.path.dirname(__file__), 'fixtures/contractor.noprop.conf'),
-                'r', 'utf8'))
-        m.return_value = conf
+        m.return_value = os.path.join(os.path.dirname(__file__), 'fixtures/contractor.noprop.conf')
         self.contractor = contractor.Contractor()
 
     def test_name_return_empty(self):

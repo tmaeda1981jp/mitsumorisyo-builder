@@ -5,21 +5,22 @@
 class Contractor:
 
     def __init__(self):
-        conf = self._getConfig()
-
-        for prop in ['name', 'postal_code', 'address1', 'address2', 'tel']:
-            try:
-                self.__dict__[prop] = conf.get('contractor', prop)
-            except:
-                self.__dict__[prop] = ''
-
-    def _getConfig(self):
         import codecs
         import ConfigParser
 
-        conf = ConfigParser.SafeConfigParser()
-        conf.readfp(codecs.open('./contractor.conf', 'r', 'utf8'))
-        return conf
+        properties = {'name': '',
+                      'postal_code': '',
+                      'address1': '',
+                      'address2': '',
+                      'tel': ''}
+        conf = ConfigParser.SafeConfigParser(properties)
+        conf.readfp(codecs.open(self._getConfigPath(), 'r', 'utf8'))
+
+        for prop in properties.keys():
+            self.__dict__[prop] = conf.get('contractor', prop)
+
+    def _getConfigPath(self):
+        return './contractor.conf'
 
     @property
     def name(self):
