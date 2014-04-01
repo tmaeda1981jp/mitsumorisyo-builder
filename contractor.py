@@ -7,7 +7,6 @@ class Contractor:
     def __init__(self):
         import codecs
         import ConfigParser
-
         properties = {'name': '',
                       'postal_code': '',
                       'address1': '',
@@ -20,7 +19,8 @@ class Contractor:
             self.__dict__[prop] = conf.get('contractor', prop)
 
     def _getConfigPath(self):
-        return './contractor.conf'
+        import os
+        return os.path.join(os.path.dirname(__file__), 'contractor.conf')
 
     @property
     def name(self):
