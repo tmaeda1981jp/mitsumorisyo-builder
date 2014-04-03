@@ -20,7 +20,7 @@ class Contractor:
 
     def _getConfigPath(self):
         import os
-        return os.path.join(os.path.dirname(__file__), 'contractor.conf')
+        return os.path.join(os.path.dirname(__file__), '../contractor.conf')
 
     @property
     def name(self):
