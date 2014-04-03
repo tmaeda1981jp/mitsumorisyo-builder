@@ -4,8 +4,6 @@
 import unittest
 import mock
 import contractor
-import ConfigParser
-import codecs
 import os
 
 
