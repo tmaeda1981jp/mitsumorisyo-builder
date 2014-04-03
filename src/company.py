@@ -2,9 +2,9 @@
 # -*- encoding:utf-8 -*-
 
 
-class Contractor:
+class Company:
 
-    def __init__(self):
+    def __init__(self, configPath):
         import codecs
         import ConfigParser
         properties = {'name': '',
@@ -13,14 +13,10 @@ class Contractor:
                       'address2': '',
                       'tel': ''}
         conf = ConfigParser.SafeConfigParser(properties)
-        conf.readfp(codecs.open(self._getConfigPath(), 'r', 'utf8'))
+        conf.readfp(codecs.open(configPath, 'r', 'utf8'))
 
         for prop in properties.keys():
-            self.__dict__[prop] = conf.get('contractor', prop)
-
-    def _getConfigPath(self):
-        import os
-        return os.path.join(os.path.dirname(__file__), '../contractor.conf')
+            self.__dict__[prop] = conf.get('company', prop)
 
     @property
     def name(self):
