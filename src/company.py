@@ -1,22 +1,21 @@
 #!/usr/bin/env python
 # -*- encoding:utf-8 -*-
 
+import yaml
+
 
 class Company:
 
-    def __init__(self, configPath):
+    def __init__(self, yaml_path):
         import codecs
-        import ConfigParser
-        properties = {'name': '',
-                      'postal_code': '',
-                      'address1': '',
-                      'address2': '',
-                      'tel': ''}
-        conf = ConfigParser.SafeConfigParser(properties)
-        conf.readfp(codecs.open(configPath, 'r', 'utf8'))
+        data = yaml.load(codecs.open(yaml_path, 'r', 'utf8'))
+        for key in ['name', 'postal_code', 'address1', 'address2', 'tel']:
+            if key in data:
+                prop = data[key]
+                self.__dict__[key] = prop if prop is not None else ''
+            else:
+                self.__dict__[key] = ''
 
-        for prop in properties.keys():
-            self.__dict__[prop] = conf.get('company', prop)
 
     @property
     def name(self):
@@ -31,7 +30,7 @@ class Company:
         return self.postal_code
 
     @property
-    def addres1(self):
+    def address1(self):
         return self.address1
 
     @property
@@ -41,3 +40,6 @@ class Company:
     @property
     def tel(self):
         return self.tel
+
+if __name__ == '__main__':
+    Company('../contractor.yaml')

@@ -9,7 +9,9 @@ from company import Company
 class TestCompanyNormal(unittest.TestCase):
 
     def setUp(self):
-        self.company = Company(os.path.join(os.path.dirname(__file__), 'fixtures/company.normal.conf'))
+        self.company = Company(
+            os.path.join(os.path.dirname(__file__),
+                         'fixtures/company.normal.yaml'))
 
     def test_name(self):
         self.assertEqual(self.company.name, u'前田 太郎')
@@ -33,7 +35,9 @@ class TestCompanyNormal(unittest.TestCase):
 class TestCompanyWhenDataIsEmpty(unittest.TestCase):
 
     def setUp(self):
-        self.company = Company(os.path.join(os.path.dirname(__file__), 'fixtures/company.empty.conf'))
+        self.company = Company(
+            os.path.join(os.path.dirname(__file__),
+                         'fixtures/company.empty.yaml'))
 
     def test_name_return_empty(self):
         self.assertEqual(self.company.name, '')
@@ -57,7 +61,9 @@ class TestCompanyWhenDataIsEmpty(unittest.TestCase):
 class TestCompanyWhenRequiredPropertiesWereNotDefined(unittest.TestCase):
 
     def setUp(self):
-        self.company = Company(os.path.join(os.path.dirname(__file__), 'fixtures/company.noprop.conf'))
+        self.company = Company(
+            os.path.join(os.path.dirname(__file__),
+                         'fixtures/company.noprop.yaml'))
 
     def test_name_return_empty(self):
         self.assertEqual(self.company.name, '')
