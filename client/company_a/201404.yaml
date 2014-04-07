@@ -1,0 +1,22 @@
+title: 4月分御見積り
+time_for_payment: ''
+payment_terms: ''
+quote_expiration_date: ''
+estimate_conditions: ''
+
+items:
+  - item: item1
+    unit: ''
+    quantity: 1
+    price: 250000
+    remarks: ''
+
+  - item: item2
+    unit: ''
+    quantity: 2
+    price: 250000
+
+  - item: item3
+    unit: ''
+    quantity: 1
+    price: 250000

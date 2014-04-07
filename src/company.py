@@ -16,7 +16,6 @@ class Company:
             else:
                 self.__dict__[key] = ''
 
-
     @property
     def name(self):
         return self.name

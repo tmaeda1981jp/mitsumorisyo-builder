@@ -1,0 +1,22 @@
+title: 2014年4月分御見積
+time_for_payment: 2014年5月
+payment_terms: 20日締翌月末
+quote_expiration_date: 30日
+estimate_conditions: 仕様追加発生の場合は別途御見積り
+
+items:
+  - item: アイテム１
+    unit: ''
+    quantity: 1
+    price: 100000
+    remarks: ''
+
+  - item: アイテム２
+    unit: ''
+    quantity: 2
+    price: 250000
+
+  - item: アイテム３
+    unit: ''
+    quantity: 3
+    price: 500000
