@@ -5,7 +5,7 @@ import yaml
 import setting
 
 
-class Quota:
+class Quotation:
 
     def __init__(self, yaml_path):
         import codecs
@@ -66,7 +66,7 @@ class Quota:
         return self.items
 
 if __name__ == '__main__':
-    q = Quota('./client/company_a/201404.yaml')
+    q = Quotation('./client/company_a/201404.yaml')
     print q.get_total_amount_without_tax()
     print q.get_total_amount_with_tax()
     print q.get_consumption_tax()
