@@ -2,6 +2,7 @@
 # -*- encoding:utf-8 -*-
 
 import yaml
+import setting
 
 
 class Quota:
@@ -19,15 +20,26 @@ class Quota:
                 self.__dict__[key] = ''
 
     def get_total_amount_without_tax(self):
-        return reduce(lambda a, b: a + b,
-                      map(lambda item: item['price'] * item['quantity'],
-                          self.items))
+        """ 税抜き金額を返す
+        """
+        return sum(map(lambda item: item['price'] * item['quantity'],
+                       self.items))
 
     def get_total_amount_with_tax(self):
+        """ 税込金額を返す
+        """
         return self.get_total_amount_without_tax() + self.get_consumption_tax()
 
     def get_consumption_tax(self):
-        return int(self.get_total_amount_without_tax() * 0.08)
+        """ 消費税を返す
+        """
+        return int(self.get_total_amount_without_tax() * setting.TAX_RATE)
+
+    def get_withholding_tax(self):
+        """ 源泉徴収税額を返す
+        """
+        return int(self.get_total_amount_without_tax()
+                   * setting.WITHHOLDING_TAX_RATE)
 
     @property
     def title(self):

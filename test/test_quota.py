@@ -51,5 +51,11 @@ class TestQuotaNormal(unittest.TestCase):
             self.quota.get_consumption_tax(),
             int((100000 + (2 * 250000) + (3 * 500000)) * 0.08)) # TODO read from setting
 
+    def test_get_withholding_tax(self):
+        self.assertEqual(
+            self.quota.get_withholding_tax(),
+            int((100000 + (2 * 250000) + (3 * 500000)) * 0.1021))
+
+
 if __name__ == '__main__':
     unittest.main()
