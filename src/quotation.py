@@ -65,6 +65,9 @@ class Quotation:
     def items(self):
         return self.items
 
+    def __unicode__(self):
+        return "[%s]" % self.title
+
 if __name__ == '__main__':
     q = Quotation('./client/company_a/201404.yaml')
     print q.get_total_amount_without_tax()

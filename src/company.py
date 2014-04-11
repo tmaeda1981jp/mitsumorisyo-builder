@@ -40,5 +40,9 @@ class Company:
     def tel(self):
         return self.tel
 
+    def __unicode__(self):
+        return u"[%s|%s|%s|%s|%s]" % (self.name, self.postal_code,
+                                      self.address1, self.address2, self.tel)
+
 if __name__ == '__main__':
     Company('../contractor.yaml')
