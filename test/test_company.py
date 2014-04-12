@@ -2,6 +2,7 @@
 # -*- encoding:utf-8 -*-
 
 import unittest
+import sys
 import os
 from company import Company
 
@@ -83,6 +84,13 @@ class TestCompanyWhenRequiredPropertiesWereNotDefined(unittest.TestCase):
     def test_tel_return_empty(self):
         self.assertEqual(self.company.tel, '')
 
+
+class TestCompanyWhenPassedFileIsNotFound(unittest.TestCase):
+
+    def test_init(self):
+#        self.assertRaises(IOError, Company, 'not_exist.yaml')
+        with self.assertRaises(IOError):
+            Company('not_exist.yaml')
 
 if __name__ == '__main__':
     unittest.main()

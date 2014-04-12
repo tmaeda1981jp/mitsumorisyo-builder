@@ -1,13 +1,17 @@
 #!/usr/bin/env python
 # -*- encoding:utf-8 -*-
 
+import os
+import codecs
 import yaml
 
 
 class Company:
 
     def __init__(self, yaml_path):
-        import codecs
+        if not os.path.exists(yaml_path):
+            raise IOError("%s is not found." % yaml_path)
+
         data = yaml.load(codecs.open(yaml_path, 'r', 'utf8'))
         for key in ['name', 'postal_code', 'address1', 'address2', 'tel']:
             if key in data:
