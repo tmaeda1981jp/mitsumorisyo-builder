@@ -1,24 +1,15 @@
 #!/usr/bin/env python
 # -*- encoding:utf-8 -*-
 
-import os
-import codecs
-import yaml
+from yaml_loader import YamlLoader
 
 
 class Company:
 
     def __init__(self, yaml_path):
-        if not os.path.exists(yaml_path):
-            raise IOError("%s is not found." % yaml_path)
-
-        data = yaml.load(codecs.open(yaml_path, 'r', 'utf8'))
-        for key in ['name', 'postal_code', 'address1', 'address2', 'tel']:
-            if key in data:
-                prop = data[key]
-                self.__dict__[key] = prop if prop is not None else ''
-            else:
-                self.__dict__[key] = ''
+        properties = ['name', 'postal_code', 'address1', 'address2', 'tel']
+        for key, value in YamlLoader.load(yaml_path, properties).items():
+            self.__dict__[key] = value
 
     @property
     def name(self):

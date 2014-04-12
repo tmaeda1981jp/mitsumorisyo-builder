@@ -1,23 +1,19 @@
 #!/usr/bin/env python
 # -*- encoding:utf-8 -*-
 
-import yaml
 import setting
+from yaml_loader import YamlLoader
 
 
 class Quotation:
 
     def __init__(self, yaml_path):
-        import codecs
-        data = yaml.load(codecs.open(yaml_path, 'r', 'utf8'))
-        for key in ['title', 'time_for_payment', 'payment_terms',
-                    'quote_expiration_date', 'estimate_conditions', 'items']:
-
-            if key in data:
-                prop = data[key]
-                self.__dict__[key] = prop if prop is not None else ''
-            else:
-                self.__dict__[key] = ''
+        properties = [
+            'title', 'time_for_payment', 'payment_terms',
+            'quote_expiration_date', 'estimate_conditions',
+            'items']
+        for key, value in YamlLoader.load(yaml_path, properties).items():
+            self.__dict__[key] = value
 
     def get_total_amount_without_tax(self):
         """ 税抜き金額を返す
