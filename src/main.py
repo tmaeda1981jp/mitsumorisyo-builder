@@ -3,6 +3,8 @@
 
 from company import Company
 from quotation import Quotation
+from quotation_sheet_builder import QuotationSheetBuilder
+from default_quotation_sheet_template import DefaultQuotationSheetTemplate
 import argparse
 
 if __name__ == '__main__':
@@ -10,7 +12,6 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--client', required=True)
     parser.add_argument('-m', '--month', type=int)
     args = parser.parse_args()
-    print(args)
 
     try:
         contractor = Company('./contractor.yaml')
@@ -21,8 +22,6 @@ if __name__ == '__main__':
         print message
         exit(1)
 
-    print unicode(contractor)
-    print unicode(client)
-    print unicode(quotation)
-
-#    QuotationSheetBuilder(contractor, client, quotation).build()
+    file_path = '_build/%s_%s.pdf' % (args.client, args.month)
+    template = DefaultQuotationSheetTemplate(file_path)
+    QuotationSheetBuilder(template).build(contractor, client, quotation)
