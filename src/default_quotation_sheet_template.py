@@ -7,7 +7,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from datetime import datetime
-
+import locale
 
 class DefaultQuotationSheetTemplate:
 
@@ -15,6 +15,7 @@ class DefaultQuotationSheetTemplate:
         self.pdf = canvas.Canvas(file_path, pagesize=A4)
         pdfmetrics.registerFont(
             TTFont('Osaka', u'/Library/Fonts/Osaka.ttf'))
+        locale.setlocale(locale.LC_NUMERIC, 'ja_JP')
 
     def draw(self):
 
@@ -116,7 +117,7 @@ class DefaultQuotationSheetTemplate:
         # 合計金額
         self.pdf.setFont('Osaka', 14)
         self.pdf.drawString(155, 530, u"￥%s -" %
-                            quotation.get_total_amount_with_tax())
+                            locale.format('%d', quotation.get_total_amount_with_tax(), True))
 
         # details
         self.pdf.setFont('Osaka', 9)
@@ -125,20 +126,20 @@ class DefaultQuotationSheetTemplate:
         for item in quotation.items:
             self.pdf.drawString(53,  pos_y, item['item'])
             self.pdf.drawRightString(295, pos_y, str(item['quantity']))
-            self.pdf.drawRightString(360, pos_y, str(item['price']))
-            self.pdf.drawRightString(pos_x_for_amount, pos_y, str(item['price'] * item['quantity']))
+            self.pdf.drawRightString(360, pos_y, locale.format('%d', item['price'], True))
+            self.pdf.drawRightString(pos_x_for_amount, pos_y, locale.format('%d', item['price'] * item['quantity'], True))
             pos_y = pos_y - 25
 
         self.pdf.drawString(53,  pos_y, u"<税抜き額合計>")
-        self.pdf.drawRightString(pos_x_for_amount, pos_y, str(quotation.get_total_amount_without_tax()))
+        self.pdf.drawRightString(pos_x_for_amount, pos_y, locale.format('%d', quotation.get_total_amount_without_tax(), True))
 
         pos_y = pos_y - 25
 
         self.pdf.drawString(53,  pos_y, u"<消費税>")
-        self.pdf.drawRightString(pos_x_for_amount, pos_y, str(quotation.get_consumption_tax()))
+        self.pdf.drawRightString(pos_x_for_amount, pos_y, locale.format('%d', quotation.get_consumption_tax(), True))
 
         # total
-        self.pdf.drawRightString(pos_x_for_amount, 60, str(quotation.get_total_amount_with_tax()))
+        self.pdf.drawRightString(pos_x_for_amount, 60, locale.format('%d', quotation.get_total_amount_with_tax(), True))
 
         return self
 
