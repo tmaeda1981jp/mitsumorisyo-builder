@@ -121,23 +121,24 @@ class DefaultQuotationSheetTemplate:
         # details
         self.pdf.setFont('Osaka', 9)
         pos_y = 455
+        pos_x_for_amount = 450
         for item in quotation.items:
             self.pdf.drawString(53,  pos_y, item['item'])
-            self.pdf.drawString(290, pos_y, str(item['quantity']))
-            self.pdf.drawString(328, pos_y, str(item['price']))
-            self.pdf.drawString(417, pos_y, str(item['price'] * item['quantity']))
+            self.pdf.drawRightString(295, pos_y, str(item['quantity']))
+            self.pdf.drawRightString(360, pos_y, str(item['price']))
+            self.pdf.drawRightString(pos_x_for_amount, pos_y, str(item['price'] * item['quantity']))
             pos_y = pos_y - 25
 
         self.pdf.drawString(53,  pos_y, u"<税抜き額合計>")
-        self.pdf.drawString(408, pos_y, str(quotation.get_total_amount_without_tax()))
+        self.pdf.drawRightString(pos_x_for_amount, pos_y, str(quotation.get_total_amount_without_tax()))
 
         pos_y = pos_y - 25
 
         self.pdf.drawString(53,  pos_y, u"<消費税>")
-        self.pdf.drawString(423, pos_y, str(quotation.get_consumption_tax()))
+        self.pdf.drawRightString(pos_x_for_amount, pos_y, str(quotation.get_consumption_tax()))
 
         # total
-        self.pdf.drawString(480, 60, str(quotation.get_total_amount_with_tax()))
+        self.pdf.drawRightString(pos_x_for_amount, 60, str(quotation.get_total_amount_with_tax()))
 
         return self
 
