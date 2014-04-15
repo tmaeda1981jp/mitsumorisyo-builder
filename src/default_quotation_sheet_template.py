@@ -9,6 +9,7 @@ from reportlab.pdfgen import canvas
 from datetime import datetime
 import locale
 
+
 class DefaultQuotationSheetTemplate:
 
     def __init__(self, file_path):
@@ -104,6 +105,11 @@ class DefaultQuotationSheetTemplate:
         return self
 
     def set_quotation(self, quotation):
+        if len(quotation.items) == 0:
+            raise Exception("見積もりを1件以上入力して下さい")
+        if len(quotation.items) > 14:
+            raise Exception("このテンプレートに記載できる見積もりの最大件数は14件です")
+
         self.pdf.setFillColor(colors.black)
         self.pdf.setFont('Osaka', 9)
         if quotation.title:

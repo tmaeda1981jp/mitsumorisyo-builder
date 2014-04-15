@@ -6,8 +6,13 @@ from quotation import Quotation
 from quotation_sheet_builder import QuotationSheetBuilder
 from default_quotation_sheet_template import DefaultQuotationSheetTemplate
 import argparse
+import logging
 
 if __name__ == '__main__':
+
+    logging.basicConfig(level=logging.DEBUG,
+                        format='\033[91m[%(levelname)s]\033[0m %(message)s')
+
     parser = argparse.ArgumentParser(description='quotation-sheet-builder')
     parser.add_argument('-c', '--client', required=True)
     parser.add_argument('-m', '--month', type=int)
@@ -19,8 +24,7 @@ if __name__ == '__main__':
         quotation = Quotation('./client/%s/%s.yaml' %
                               (args.client, args.month))
     except IOError as message:
-        print message
-        exit(1)
+        exit(logging.error(message))
 
     file_path = '_build/%s_%s.pdf' % (args.client, args.month)
     template = DefaultQuotationSheetTemplate(file_path)
