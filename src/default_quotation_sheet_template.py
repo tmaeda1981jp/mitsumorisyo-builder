@@ -106,13 +106,18 @@ class DefaultQuotationSheetTemplate:
     def set_quotation(self, quotation):
         self.pdf.setFillColor(colors.black)
         self.pdf.setFont('Osaka', 9)
-        self.pdf.drawString(50, 635, u"件名：%s" % quotation.title)
-        self.pdf.drawString(50, 615, u"納期：%s" % quotation.time_for_payment)
-        self.pdf.drawString(50, 595, u"支払い条件：%s" % quotation.payment_terms)
-        self.pdf.drawString(50, 575, u"見積もり有効期限：%s" %
-                            quotation.quote_expiration_date)
-        self.pdf.drawString(50, 555, u"見積もり条件：%s" %
-                            quotation.estimate_conditions)
+        if quotation.title:
+            self.pdf.drawString(50, 635, u"件名：%s" % quotation.title)
+        if quotation.time_for_payment:
+            self.pdf.drawString(50, 615, u"納期：%s" % quotation.time_for_payment)
+        if quotation.payment_terms:
+            self.pdf.drawString(50, 595, u"支払い条件：%s" % quotation.payment_terms)
+        if quotation.quote_expiration_date:
+            self.pdf.drawString(50, 575, u"見積もり有効期限：%s" %
+                                quotation.quote_expiration_date)
+        if quotation.estimate_conditions:
+            self.pdf.drawString(50, 555, u"見積もり条件：%s" %
+                                quotation.estimate_conditions)
 
         # 合計金額
         self.pdf.setFont('Osaka', 14)
